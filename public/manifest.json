@@ -1,0 +1,22 @@
+{
+  "name": "BRUR Bus Driver",
+  "short_name": "BRURDriver",
+  "description": "Driver portal for BRUR Bus Tracker",
+  "start_url": "/driver.html",
+  "display": "standalone",
+  "background_color": "#0d1b4b",
+  "theme_color": "#0d1b4b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

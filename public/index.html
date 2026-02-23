@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BRUR Bus Tracker</title>
+
+  <!-- Leaflet CSS — the map library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <!-- Our own styles -->
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+  <!-- ===== TOP SEARCH BAR ===== -->
+  <div id="topbar">
+    <div id="search-wrapper">
+      <input type="text" id="search-input" placeholder="🔍 Search buses or routes..." autocomplete="off"/>
+      <div id="search-results"></div>
+    </div>
+    <button id="menu-btn" aria-label="Open menu">&#9776;</button>
+  </div>
+
+  <!-- ===== MAP ===== -->
+  <div id="map"></div>
+
+  <!-- ===== BOTTOM PANEL ===== -->
+  <div id="bottom-panel">
+    <div id="tab-buttons">
+      <button class="tab-btn active" data-tab="live">🚌 Live Tracking</button>
+      <button class="tab-btn" data-tab="schedule">📅 Bus Schedule</button>
+    </div>
+
+    <!-- Live Tracking Tab -->
+    <div id="tab-live" class="tab-content active">
+      <div id="bus-list">
+        <p class="placeholder-text">Loading buses...</p>
+      </div>
+    </div>
+
+    <!-- Schedule Tab -->
+    <div id="tab-schedule" class="tab-content">
+      <div id="schedule-list">
+        <div class="schedule-item">
+          <span class="schedule-bus">Bus 1 — BRUR → Modern More → Station</span>
+          <span class="schedule-time">7:30 AM &nbsp;|&nbsp; 1:00 PM &nbsp;|&nbsp; 5:00 PM</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-bus">Bus 2 — BRUR → Medical → Shapla Chattar</span>
+          <span class="schedule-time">7:45 AM &nbsp;|&nbsp; 1:15 PM &nbsp;|&nbsp; 5:15 PM</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-bus">Bus 3 — BRUR → Lalbagh → Dhap</span>
+          <span class="schedule-time">8:00 AM &nbsp;|&nbsp; 1:30 PM &nbsp;|&nbsp; 5:30 PM</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-bus">Bus 4 — BRUR → Cantonment → Mahiganj</span>
+          <span class="schedule-time">8:15 AM &nbsp;|&nbsp; 1:45 PM &nbsp;|&nbsp; 5:45 PM</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-bus">Bus 5 — BRUR → Cadet College Road</span>
+          <span class="schedule-time">8:30 AM &nbsp;|&nbsp; 2:00 PM &nbsp;|&nbsp; 6:00 PM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SIDE MENU ===== -->
+  <div id="menu-overlay"></div>
+  <div id="side-menu">
+    <button id="menu-close">✕</button>
+    <div id="menu-logo">
+      <div id="menu-logo-icon">🚌</div>
+      <div>
+        <div id="menu-title">BRUR Bus Tracker</div>
+        <div id="menu-subtitle">Begum Rokeya University, Rangpur</div>
+      </div>
+    </div>
+    <nav id="menu-nav">
+      <a href="#" id="apply-driver-link">🧑‍✈️ Apply as a Driver</a>
+      <a href="#" id="about-link">ℹ️ About This App</a>
+      <a href="/driver.html" id="driver-portal-link">🔐 Driver Portal</a>
+    </nav>
+  </div>
+
+  <!-- ===== APPLY AS DRIVER MODAL ===== -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal">
+      <button class="modal-close">✕</button>
+      <h2>Apply as a Driver</h2>
+      <p>Fill out this form and the admin will contact you.</p>
+      <form id="apply-form">
+        <input type="text" placeholder="Your Full Name" required />
+        <input type="text" placeholder="Phone Number" required />
+        <input type="text" placeholder="Which route can you drive?" required />
+        <textarea placeholder="Any additional info..." rows="3"></textarea>
+        <button type="submit">Submit Application</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT MODAL ===== -->
+  <div id="about-overlay" class="hidden">
+    <div id="modal">
+      <button class="modal-close">✕</button>
+      <h2>About BRUR Bus Tracker</h2>
+      <p>This app provides real-time tracking of university buses at Begum Rokeya University, Rangpur.</p>
+      <p>Built for students, by a student. No login required — just open and track.</p>
+      <p style="margin-top:16px; font-size:0.85rem; color:#888;">Version 1.0 &nbsp;·&nbsp; Open Source</p>
+    </div>
+  </div>
+
+  <!-- ===== BUS DETAIL PANEL (appears when a bus is selected) ===== -->
+  <div id="bus-detail" class="hidden">
+    <button id="bus-detail-close">✕ Close</button>
+    <div id="bus-detail-color-bar"></div>
+    <div id="bus-detail-name"></div>
+    <div id="bus-detail-route"></div>
+    <div id="bus-detail-speed"></div>
+    <button id="bus-detail-track">📍 Center on Map</button>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Socket.io client (auto-served by our server) -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Our map logic -->
+  <script src="/js/map.js"></script>
+
+</body>
+</html>
