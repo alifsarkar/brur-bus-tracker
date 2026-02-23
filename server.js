@@ -10,6 +10,10 @@ const path = require('path');
 // --- App Setup ---
 const app = express();
 const server = http.createServer(app);
+
+// Trust Render's proxy (needed for HTTPS on deployment)
+app.set('trust proxy', 1);
+
 const io = new Server(server);
 
 // Serve all files in the /public folder to the browser
